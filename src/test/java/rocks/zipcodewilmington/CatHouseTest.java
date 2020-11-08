@@ -5,19 +5,23 @@ import org.junit.Test;
 import rocks.zipcodewilmington.animals.Cat;
 import rocks.zipcodewilmington.animals.animal_storage.CatHouse;
 
+import java.util.Date;
+
 /**
  * @author leon on 4/19/18.
  */
 public class CatHouseTest {
+
     // TODO - Create tests for `void add(Cat cat)`
     @Test
-    public void addTest() {
+    public void addCatTest() {
         // given
-        Cat expected = new Cat();
+        Date bday = new Date(2018, 4, 5);
+        Cat expected = new Cat("Fluffy", bday, 8);
         Integer id = expected.getId();
+        CatHouse.add(expected);
 
         // when
-        CatHouse.add(expected);
         Cat actual = CatHouse.getCatById(id);
 
         // then
@@ -26,8 +30,8 @@ public class CatHouseTest {
 
     // TODO - Create tests for `void remove(Integer id)`
     @Test
-    public void removeTest() {
-        // given
+    public void removeIdTest() {
+
         Cat catToBeAdded = new Cat(null, null, 0);
         CatHouse.add(catToBeAdded);
         Integer id = catToBeAdded.getId();
@@ -38,6 +42,18 @@ public class CatHouseTest {
 
         // then
         Assert.assertNull(retrievedCat);
+        // given
+        /*Date bday = new Date(2018, 4, 5);
+        Cat catToBeAdded = new Cat("Fluffy", bday, 8);
+        CatHouse.add(catToBeAdded);
+        Integer id = catToBeAdded.getId();
+
+        // when
+        CatHouse.remove(id);
+        Cat retrievedCat = CatHouse.getCatById(id);
+
+        // then
+        Assert.assertNull(retrievedCat);*/
     }
 
 
@@ -45,9 +61,10 @@ public class CatHouseTest {
     @Test
     public void removeByCatTest() {
         // given
-        Cat catToBeAdded = new Cat(null, null, 0);
-        CatHouse.add(catToBeAdded);
+        //Date bday = new Date(2018, 4, 5);
+        Cat catToBeAdded = new Cat("Fluffy", null, 2);
         Integer id = catToBeAdded.getId();
+        CatHouse.add(catToBeAdded);
 
         // when
         CatHouse.remove(catToBeAdded);
@@ -55,6 +72,22 @@ public class CatHouseTest {
 
         // then
         Assert.assertNull(retrievedCat);
+    }
+
+    //added
+    @Test
+    public void getCatByIdTest() {
+        // given
+        //Date bday = new Date(2018, 4, 5);
+        Cat givenCat = new Cat("Fluffy", null, 11);
+        Integer givenId = givenCat.getId();
+        CatHouse.add(givenCat);
+
+        // when
+        Cat actualCat = CatHouse.getCatById(givenId);
+
+        // then
+        Assert.assertEquals(givenCat, actualCat);
     }
 
     // TODO - Create tests for `Integer getNumberOfCats()`
@@ -77,9 +110,5 @@ public class CatHouseTest {
 
         // then
         Assert.assertEquals(expected, actual);
-
-
-
-
     }
 }
